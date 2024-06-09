@@ -80,6 +80,5 @@ dependencies {
     implementation(libs.kotlinx.serialization)
 
     implementation(libs.hilt.android)
-    implementation(libs.hilt.lifecycleviewmodel)
     kapt(libs.hilt.androidcompiler)
 }

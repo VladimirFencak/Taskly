@@ -13,7 +13,7 @@ kotlinxSerialization = "1.6.3"
 hilt = "2.51.1"
 hiltvm = "1.0.0-alpha03"
 ksp = "1.8.10-1.0.9"
-kapt = "2.0.0"
+kapt = "1.9.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -41,8 +41,6 @@ kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-seria
 
 hilt_android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt_androidcompiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
-hilt_lifecycleviewmodel = { group = "androidx.hilt", name = "hilt-lifecycle-viewmodel", version.ref = "hiltvm" }
-
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

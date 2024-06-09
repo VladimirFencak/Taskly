@@ -21,8 +21,9 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.http.contentType
 import kotlinx.serialization.SerializationException
 import java.io.IOException
+import javax.inject.Inject
 
-class AuthApiImpl(
+class AuthApiImpl @Inject constructor(
     private val client: HttpClient
 ) : AuthApi {
     override suspend fun login(loginRequestDto: LoginRequestDto): Result<LoginResponseDto, NetworkError> {

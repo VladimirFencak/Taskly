@@ -12,8 +12,9 @@ import com.example.taskly.feature_auth.domain.model.RegisterRequest
 import com.example.taskly.feature_auth.domain.repository.AuthRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
-class AuthRepositoryImpl(
+class AuthRepositoryImpl @Inject constructor(
     private val authApi: AuthApi
 ) : AuthRepository {
     override suspend fun login(loginRequest: LoginRequest): Flow<Result<LoginResponse, NetworkError>> {
