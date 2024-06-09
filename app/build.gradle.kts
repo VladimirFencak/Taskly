@@ -2,6 +2,9 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.kotlinSerialization)
+    alias(libs.plugins.hiltPlugin)
+    //alias(libs.plugins.ksp)
+    alias(libs.plugins.kapt)
 }
 
 android {
@@ -75,4 +78,8 @@ dependencies {
     implementation(libs.ktor.serialization)
     implementation(libs.ktor.content.negotiation)
     implementation(libs.kotlinx.serialization)
+
+    implementation(libs.hilt.android)
+    implementation(libs.hilt.lifecycleviewmodel)
+    kapt(libs.hilt.androidcompiler)
 }

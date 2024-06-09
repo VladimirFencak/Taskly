@@ -1,4 +1,4 @@
-package com.example.taskly.auth.domain.errors
+package com.example.taskly.feature_auth.domain.errors
 
 enum class NetworkError : ErrorDefault {
     REQUEST_TIMEOUT,

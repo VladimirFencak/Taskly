@@ -1,8 +1,5 @@
-package com.example.taskly.auth.data.remote.dto
+package com.example.taskly.feature_auth.domain.model
 
-import kotlinx.serialization.Serializable
-
-@Serializable
 data class RegisterRequest(
     val fullName: String,
     val email: String,

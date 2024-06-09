@@ -1,11 +1,11 @@
-package com.example.taskly.auth.data.remote
+package com.example.taskly.feature_auth.data.remote
 
 import com.example.taskly.BuildConfig
-import com.example.taskly.auth.data.remote.dto.LoginRequest
-import com.example.taskly.auth.data.remote.dto.LoginResponse
-import com.example.taskly.auth.data.remote.dto.RegisterRequest
-import com.example.taskly.auth.domain.errors.NetworkError
-import com.example.taskly.auth.domain.errors.Result
+import com.example.taskly.feature_auth.data.remote.dto.LoginRequestDto
+import com.example.taskly.feature_auth.data.remote.dto.LoginResponseDto
+import com.example.taskly.feature_auth.data.remote.dto.RegisterRequestDto
+import com.example.taskly.feature_auth.domain.errors.NetworkError
+import com.example.taskly.feature_auth.domain.errors.Result
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.network.sockets.ConnectTimeoutException
@@ -25,12 +25,12 @@ import java.io.IOException
 class AuthApiImpl(
     private val client: HttpClient
 ) : AuthApi {
-    override suspend fun login(loginRequest: LoginRequest): Result<LoginResponse, NetworkError> {
+    override suspend fun login(loginRequestDto: LoginRequestDto): Result<LoginResponseDto, NetworkError> {
         return try {
             val response = client.post(HttpRoutes.LOGIN) {
                 contentType(ContentType.Application.Json)
                 header("x-api-key", BuildConfig.apiKey)
-                setBody(loginRequest)
+                setBody(loginRequestDto)
             }
 
             if (response.status == HttpStatusCode.OK) Result.Success(response.body())
@@ -41,12 +41,12 @@ class AuthApiImpl(
         }
     }
 
-    override suspend fun register(registerRequest: RegisterRequest): Result<Unit, NetworkError> {
+    override suspend fun register(registerRequestDto: RegisterRequestDto): Result<Unit, NetworkError> {
         return try {
             val response = client.post(HttpRoutes.REGISTER) {
                 contentType(ContentType.Application.Json)
                 header("x-api-key", BuildConfig.apiKey)
-                setBody(registerRequest)
+                setBody(registerRequestDto)
             }
 
             if (response.status == HttpStatusCode.OK) Result.Success(response.body())
