@@ -5,8 +5,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -15,8 +13,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.taskly.R
 
 @Composable
 fun TextInput(
@@ -34,7 +34,7 @@ fun TextInput(
         isError = isError,
         trailingIcon = {
             if (value.length > 5) Icon(
-                imageVector = Icons.Default.Check,
+                painter = painterResource(id = R.drawable.ok_check),
                 contentDescription = null,
                 tint = Color.Green
             )
@@ -47,7 +47,7 @@ fun TextInput(
 
 @Preview
 @Composable
-fun TextInputPreview() {
+private fun TextInputPreview() {
     val text = remember { mutableStateOf("") }
 
     Box(

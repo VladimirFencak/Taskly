@@ -23,7 +23,7 @@ android {
             useSupportLibrary = true
         }
 
-        buildConfigField("String", "apiKey", project.properties["api_key"].toString())
+        buildConfigField("String", "apiKey", "\"${project.findProperty("api_key")}\"")
     }
 
     buildTypes {
@@ -70,6 +70,7 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    implementation(libs.navigation.compose)
 
     implementation(libs.ktor.core)
     implementation(libs.ktor.android)
@@ -81,4 +82,5 @@ dependencies {
 
     implementation(libs.hilt.android)
     kapt(libs.hilt.androidcompiler)
+    implementation(libs.hilt.navigation)
 }

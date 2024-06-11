@@ -1,6 +1,5 @@
 package com.example.taskly.feature_auth.data.remote
 
-import com.example.taskly.BuildConfig
 import com.example.taskly.feature_auth.data.remote.dto.LoginRequestDto
 import com.example.taskly.feature_auth.data.remote.dto.LoginResponseDto
 import com.example.taskly.feature_auth.data.remote.dto.RegisterRequestDto
@@ -12,7 +11,6 @@ import io.ktor.client.network.sockets.ConnectTimeoutException
 import io.ktor.client.plugins.ClientRequestException
 import io.ktor.client.plugins.ServerResponseException
 import io.ktor.client.request.get
-import io.ktor.client.request.header
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.client.statement.HttpResponse
@@ -30,7 +28,6 @@ class AuthApiImpl @Inject constructor(
         return try {
             val response = client.post(HttpRoutes.LOGIN) {
                 contentType(ContentType.Application.Json)
-                header("x-api-key", BuildConfig.apiKey)
                 setBody(loginRequestDto)
             }
 
@@ -46,7 +43,6 @@ class AuthApiImpl @Inject constructor(
         return try {
             val response = client.post(HttpRoutes.REGISTER) {
                 contentType(ContentType.Application.Json)
-                header("x-api-key", BuildConfig.apiKey)
                 setBody(registerRequestDto)
             }
 
@@ -62,7 +58,6 @@ class AuthApiImpl @Inject constructor(
         return try {
             val response = client.get(HttpRoutes.LOGOUT) {
                 contentType(ContentType.Application.Json)
-                header("x-api-key", BuildConfig.apiKey)
             }
 
             if (response.status == HttpStatusCode.OK) Result.Success(response.body())

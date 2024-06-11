@@ -11,9 +11,10 @@ composeBom = "2024.05.00"
 ktor = "2.3.9"
 kotlinxSerialization = "1.6.3"
 hilt = "2.51.1"
-hiltvm = "1.0.0-alpha03"
+hiltNavi = "1.2.0"
 ksp = "1.8.10-1.0.9"
 kapt = "1.9.0"
+composeNavigation = "2.8.0-beta02"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -31,6 +32,8 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 
+navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "composeNavigation" }
+
 ktor-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 ktor-android = { group = "io.ktor", name = "ktor-client-android", version.ref = "ktor" }
 ktor-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
@@ -41,6 +44,8 @@ kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-seria
 
 hilt_android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt_androidcompiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+hilt-navigation = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavi" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

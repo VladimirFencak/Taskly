@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">Taskly</string>
+
+
+    <string name="welcome_back">Welcome Back!</string>
+    <string name="email_address">Email address</string>
+    <string name="password">Password</string>
+    <string name="login">LOG IN</string>
+    <string name="dont_have_account">DON\'T HAVE AN ACCOUNT?</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="error_request_timeout">Request timed out. Please try again.</string>
+    <string name="error_no_internet">No internet connection. Please check your connection and try again.</string>
+    <string name="error_unauthorized">Unauthorized access. Please check your credentials.</string>
+    <string name="error_forbidden">Access forbidden. You do not have the necessary permissions.</string>
+    <string name="error_not_found">Resource not found. Please try again.</string>
+    <string name="error_internal_server">Internal server error. Please try again later.</string>
+    <string name="error_unknown">An unknown error occurred. Please try again.</string>
+
+
 </resources>

@@ -4,7 +4,6 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.taskly.feature_auth.domain.errors.NetworkError
 import com.example.taskly.feature_auth.domain.errors.Result
 import com.example.taskly.feature_auth.domain.model.LoginRequest
 import com.example.taskly.feature_auth.domain.repository.AuthRepository
@@ -47,23 +46,11 @@ class LoginViewModel @Inject constructor(
             ).also {
                 when (it) {
                     is Result.Error -> {
-                        _state.value = _state.value.copy(isLoading = false)
-                        _state.value = _state.value.copy(
-                            error = when (it.error) {
-                                NetworkError.RECEIVED_SERVER_ERROR_MESSAGE -> it.error.errorMessage ?: "unknown error"
-                                NetworkError.REQUEST_TIMEOUT -> ""
-                                NetworkError.NO_INTERNET -> ""
-                                NetworkError.UNAUTHORIZED -> ""
-                                NetworkError.FORBIDDEN -> ""
-                                NetworkError.NOT_FOUND -> ""
-                                NetworkError.INTERNAL_SERVER_ERROR -> ""
-                                NetworkError.UNKNOWN_ERROR -> ""
-                            }
-                        )
+                        _state.value = _state.value.copy(isLoading = false, error = it.error)
                     }
 
                     is Result.Success -> {
-                        _state.value = _state.value.copy(isLoading = false)
+                        _state.value = _state.value.copy(isLoading = false, error = null)
                         //navigate to home screen
                     }
                 }
