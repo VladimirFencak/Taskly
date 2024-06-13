@@ -8,7 +8,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.taskly.feature_auth.presentation.login.LoginScreen
+import com.example.taskly.feature_auth.presentation.register.RegisterScreen
 import com.example.taskly.ui.theme.TasklyTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,7 +19,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             TasklyTheme {
-                LoginScreen()
+                RegisterScreen()
             }
         }
     }

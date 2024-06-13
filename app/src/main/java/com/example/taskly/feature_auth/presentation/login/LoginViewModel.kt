@@ -1,5 +1,6 @@
 package com.example.taskly.feature_auth.presentation.login
 
+import android.util.Patterns
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -23,6 +24,7 @@ class LoginViewModel @Inject constructor(
             LoginEvent.Login -> login(state.value.loginName, state.value.loginPwd)
             is LoginEvent.OnLoginNameChange -> {
                 _state.value = _state.value.copy(loginName = event.name)
+                validateEmail(event.name)
             }
 
             is LoginEvent.OnLoginPwdChange -> {
@@ -32,6 +34,14 @@ class LoginViewModel @Inject constructor(
             LoginEvent.SignUp -> {
                 //navigate to sign up
             }
+        }
+    }
+
+    private fun validateEmail(email: String) {
+        if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            _state.value = _state.value.copy(isValidEmail = true)
+        } else {
+            _state.value = _state.value.copy(isValidEmail = false)
         }
     }
 

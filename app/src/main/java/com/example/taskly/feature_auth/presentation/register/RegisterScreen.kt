@@ -1,8 +1,7 @@
-package com.example.taskly.feature_auth.presentation.login
+package com.example.taskly.feature_auth.presentation.register
 
 import android.widget.Toast
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,16 +31,18 @@ import com.example.taskly.ui.Dimensions
 import com.example.taskly.ui.components.TButton
 
 @Composable
-fun LoginScreen(
-    viewModel: LoginViewModel = hiltViewModel()
+fun RegisterScreen(
+    viewModel: RegisterViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
     val state = viewModel.state.value
 
-    Box(
+    Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
+            .background(MaterialTheme.colorScheme.background),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Top,
     ) {
         Box(
             modifier = Modifier
@@ -51,62 +52,64 @@ fun LoginScreen(
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = stringResource(R.string.welcome_back),
+                text = stringResource(R.string.create_account),
                 style = MaterialTheme.typography.headlineMedium.copy(color = MaterialTheme.colorScheme.onSecondary),
                 modifier = Modifier.padding(top = Dimensions.padding)
             )
         }
 
-        Column(
+        Spacer(modifier = Modifier.height(50.dp))
+
+        TextInput(
             modifier = Modifier
-                .align(Alignment.Center)
-                .padding(Dimensions.padding),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center,
-        ) {
-
-            TextInput(
-                value = state.loginName,
-                onValueChange = { viewModel.onEvent(LoginEvent.OnLoginNameChange(it)) },
-                label = stringResource(R.string.email_address),
-                trailingIcon = {
-                    if (state.isValidEmail) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ok_check),
-                            contentDescription = null,
-                            tint = Color.Green
-                        )
-                    }
+                .padding(start = Dimensions.padding, end = Dimensions.padding),
+            value = state.email,
+            onValueChange = { viewModel.onEvent(RegisterEvent.OnEmailChange(it)) },
+            label = stringResource(R.string.email_address),
+            trailingIcon = {
+                if (state.isValidEmail) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ok_check),
+                        contentDescription = null,
+                        tint = Color.Green
+                    )
                 }
-            )
+            }
+        )
 
-            PwdInput(
-                value = state.loginPwd,
-                onValueChange = { viewModel.onEvent(LoginEvent.OnLoginPwdChange(it)) },
-                label = stringResource(R.string.password),
-            )
+        TextInput(
+            modifier = Modifier
+                .padding(start = Dimensions.padding, end = Dimensions.padding),
+            value = state.name,
+            onValueChange = { viewModel.onEvent(RegisterEvent.OnNameChange(it)) },
+            label = stringResource(R.string.name),
+            trailingIcon = {
+                if (state.isValidName) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ok_check),
+                        contentDescription = null,
+                        tint = Color.Green
+                    )
+                }
+            }
+        )
 
-            TButton(
-                text = stringResource(R.string.login),
-                onClick = { viewModel.onEvent(LoginEvent.Login) }
-            )
+        PwdInput(
+            modifier = Modifier
+                .padding(start = Dimensions.padding, end = Dimensions.padding),
+            value = state.pwd,
+            onValueChange = { viewModel.onEvent(RegisterEvent.OnPwdChange(it)) },
+            label = stringResource(R.string.password),
+        )
 
+        Spacer(modifier = Modifier.height(50.dp))
 
-            Spacer(modifier = Modifier.height(Dimensions.padding))
-
-            Text(
-                text = stringResource(R.string.dont_have_account),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onBackground
-            )
-
-            Text(
-                text = stringResource(R.string.sign_up),
-                style = MaterialTheme.typography.bodyMedium,
-                color = Color.Blue,
-                modifier = Modifier.clickable { /* Handle sign up click */ }
-            )
-        }
+        TButton(
+            modifier = Modifier
+                .padding(Dimensions.padding),
+            text = stringResource(R.string.get_started),
+            onClick = { viewModel.onEvent(RegisterEvent.Register) }
+        )
     }
 
     val message = when (state.error) {
@@ -125,4 +128,5 @@ fun LoginScreen(
             Toast.makeText(context, message, Toast.LENGTH_LONG).show()
         }
     }
+
 }

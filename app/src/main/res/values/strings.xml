@@ -16,5 +16,8 @@
     <string name="error_internal_server">Internal server error. Please try again later.</string>
     <string name="error_unknown">An unknown error occurred. Please try again.</string>
 
+    <string name="create_account">Create your account</string>
+    <string name="get_started">GET STARTED</string>
+    <string name="name">Name</string>
 
 </resources>
