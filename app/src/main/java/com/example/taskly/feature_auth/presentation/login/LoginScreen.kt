@@ -4,9 +4,11 @@ import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -24,6 +26,7 @@ import com.example.taskly.R
 import com.example.taskly.feature_auth.domain.errors.NetworkError
 import com.example.taskly.feature_auth.presentation.components.PwdInput
 import com.example.taskly.feature_auth.presentation.components.TextInput
+import com.example.taskly.ui.Dimensions
 import com.example.taskly.ui.components.TButton
 
 @Composable
@@ -33,51 +36,66 @@ fun LoginScreen(
     val context = LocalContext.current
     val state = viewModel.state.value
 
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+            .background(MaterialTheme.colorScheme.background)
     ) {
-        Text(
-            text = stringResource(R.string.welcome_back),
-            style = MaterialTheme.typography.bodyMedium,
-            color = Color.Black,
-        )
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(150.dp)
+                .background(MaterialTheme.colorScheme.secondary),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = stringResource(R.string.welcome_back),
+                style = MaterialTheme.typography.headlineMedium.copy(color = MaterialTheme.colorScheme.onSecondary),
+                modifier = Modifier.padding(top = Dimensions.padding)
+            )
+        }
 
-        TextInput(
-            value = state.loginName,
-            onValueChange = { viewModel.onEvent(LoginEvent.OnLoginNameChange(it)) },
-            label = stringResource(R.string.email_address)
-        )
+        Column(
+            modifier = Modifier
+                .align(Alignment.Center)
+                .padding(Dimensions.padding),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+        ) {
 
-        PwdInput(
-            value = state.loginPwd,
-            onValueChange = { viewModel.onEvent(LoginEvent.OnLoginPwdChange(it)) },
-            label = stringResource(R.string.password),
-        )
+            TextInput(
+                value = state.loginName,
+                onValueChange = { viewModel.onEvent(LoginEvent.OnLoginNameChange(it)) },
+                label = stringResource(R.string.email_address)
+            )
 
-        TButton(
-            text = stringResource(R.string.login),
-            onClick = { viewModel.onEvent(LoginEvent.Login) }
-        )
+            PwdInput(
+                value = state.loginPwd,
+                onValueChange = { viewModel.onEvent(LoginEvent.OnLoginPwdChange(it)) },
+                label = stringResource(R.string.password),
+            )
 
-        Spacer(modifier = Modifier.height(16.dp))
+            TButton(
+                text = stringResource(R.string.login),
+                onClick = { viewModel.onEvent(LoginEvent.Login) }
+            )
 
-        Text(
-            text = stringResource(R.string.dont_have_account),
-            style = MaterialTheme.typography.bodyMedium,
-            color = Color.Gray
-        )
 
-        Text(
-            text = stringResource(R.string.sign_up),
-            style = MaterialTheme.typography.bodyMedium,
-            color = Color.Blue,
-            modifier = Modifier.clickable { /* Handle sign up click */ }
-        )
+            Spacer(modifier = Modifier.height(Dimensions.padding))
+
+            Text(
+                text = stringResource(R.string.dont_have_account),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onBackground
+            )
+
+            Text(
+                text = stringResource(R.string.sign_up),
+                style = MaterialTheme.typography.bodyMedium,
+                color = Color.Blue,
+                modifier = Modifier.clickable { /* Handle sign up click */ }
+            )
+        }
     }
 
     val message = when (state.error) {

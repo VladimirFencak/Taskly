@@ -15,8 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.example.taskly.R
+import com.example.taskly.ui.Dimensions
 
 @Composable
 fun TextInput(
@@ -41,7 +41,7 @@ fun TextInput(
         },
         modifier = modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp)
+            .padding(vertical = Dimensions.smallPadding)
     )
 }
 

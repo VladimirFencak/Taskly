@@ -18,8 +18,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.example.taskly.R
+import com.example.taskly.ui.Dimensions
 
 @Composable
 fun PwdInput(
@@ -28,7 +28,7 @@ fun PwdInput(
     onValueChange: (String) -> Unit,
     label: String,
 ) {
-    var isPasswordVisible = remember { false }
+    val isPasswordVisible = remember { mutableStateOf(false) }
 
     OutlinedTextField(
         value = value,
@@ -36,9 +36,9 @@ fun PwdInput(
         label = { Text(label) },
         trailingIcon = {
             IconButton(
-                onClick = { isPasswordVisible = !isPasswordVisible }) {
+                onClick = { isPasswordVisible.value = !isPasswordVisible.value }) {
                 Icon(
-                    painter = if (isPasswordVisible) {
+                    painter = if (isPasswordVisible.value) {
                         painterResource(id = R.drawable.visible_pwd)
                     } else {
                         painterResource(id = R.drawable.hidden_pwd)
@@ -47,10 +47,10 @@ fun PwdInput(
                 )
             }
         },
-        visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+        visualTransformation = if (isPasswordVisible.value) VisualTransformation.None else PasswordVisualTransformation(),
         modifier = modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp)
+            .padding(vertical = Dimensions.smallPadding)
     )
 }
 
