@@ -3,12 +3,11 @@ package com.example.taskly.feature_auth.presentation.login
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
@@ -19,7 +18,9 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -29,6 +30,7 @@ import com.example.taskly.feature_auth.domain.errors.NetworkError
 import com.example.taskly.feature_auth.presentation.components.PwdInput
 import com.example.taskly.feature_auth.presentation.components.TextInput
 import com.example.taskly.ui.Dimensions
+import com.example.taskly.ui.components.RoundedTopBar
 import com.example.taskly.ui.components.TButton
 
 @Composable
@@ -37,76 +39,71 @@ fun LoginScreen(
 ) {
     val context = LocalContext.current
     val state = viewModel.state.value
+    val keyboardController = LocalSoftwareKeyboardController.current
 
-    Box(
+    Column(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
+            .pointerInput(Unit) {
+                detectTapGestures(onTap = {
+                    keyboardController?.hide()
+                })
+            },
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Top,
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(150.dp)
-                .background(MaterialTheme.colorScheme.secondary),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-                text = stringResource(R.string.welcome_back),
-                style = MaterialTheme.typography.headlineMedium.copy(color = MaterialTheme.colorScheme.onSecondary),
-                modifier = Modifier.padding(top = Dimensions.padding)
-            )
-        }
 
-        Column(
-            modifier = Modifier
-                .align(Alignment.Center)
-                .padding(Dimensions.padding),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center,
-        ) {
+        RoundedTopBar(
+            title = stringResource(R.string.welcome_back)
+        )
 
-            TextInput(
-                value = state.loginName,
-                onValueChange = { viewModel.onEvent(LoginEvent.OnLoginNameChange(it)) },
-                label = stringResource(R.string.email_address),
-                trailingIcon = {
-                    if (state.isValidEmail) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ok_check),
-                            contentDescription = null,
-                            tint = Color.Green
-                        )
-                    }
+        Spacer(modifier = Modifier.height(30.dp))
+
+        TextInput(
+            modifier = Modifier
+                .padding(start = Dimensions.padding, end = Dimensions.padding),
+            value = state.loginName,
+            onValueChange = { viewModel.onEvent(LoginEvent.OnLoginNameChange(it)) },
+            label = stringResource(R.string.email_address),
+            trailingIcon = {
+                if (state.isValidEmail) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ok_check),
+                        contentDescription = null,
+                        tint = Color.Green
+                    )
                 }
-            )
+            }
+        )
 
-            PwdInput(
-                value = state.loginPwd,
-                onValueChange = { viewModel.onEvent(LoginEvent.OnLoginPwdChange(it)) },
-                label = stringResource(R.string.password),
-            )
+        PwdInput(
+            modifier = Modifier
+                .padding(start = Dimensions.padding, end = Dimensions.padding),
+            value = state.loginPwd,
+            onValueChange = { viewModel.onEvent(LoginEvent.OnLoginPwdChange(it)) },
+            label = stringResource(R.string.password),
+        )
 
-            TButton(
-                text = stringResource(R.string.login),
-                onClick = { viewModel.onEvent(LoginEvent.Login) }
-            )
+        TButton(
+            modifier = Modifier
+                .padding(Dimensions.padding),
+            text = stringResource(R.string.login),
+            onClick = { viewModel.onEvent(LoginEvent.Login) }
+        )
 
+        Text(
+            text = stringResource(R.string.dont_have_account),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onBackground
+        )
 
-            Spacer(modifier = Modifier.height(Dimensions.padding))
-
-            Text(
-                text = stringResource(R.string.dont_have_account),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onBackground
-            )
-
-            Text(
-                text = stringResource(R.string.sign_up),
-                style = MaterialTheme.typography.bodyMedium,
-                color = Color.Blue,
-                modifier = Modifier.clickable { /* Handle sign up click */ }
-            )
-        }
+        Text(
+            text = stringResource(R.string.sign_up),
+            style = MaterialTheme.typography.bodyMedium,
+            color = Color.Blue,
+            modifier = Modifier.clickable { /* Handle sign up click */ }
+        )
     }
 
     val message = when (state.error) {
@@ -125,4 +122,5 @@ fun LoginScreen(
             Toast.makeText(context, message, Toast.LENGTH_LONG).show()
         }
     }
+
 }

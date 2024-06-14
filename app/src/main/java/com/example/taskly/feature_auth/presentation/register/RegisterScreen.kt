@@ -2,23 +2,23 @@ package com.example.taskly.feature_auth.presentation.register
 
 import android.widget.Toast
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -28,6 +28,7 @@ import com.example.taskly.feature_auth.domain.errors.NetworkError
 import com.example.taskly.feature_auth.presentation.components.PwdInput
 import com.example.taskly.feature_auth.presentation.components.TextInput
 import com.example.taskly.ui.Dimensions
+import com.example.taskly.ui.components.RoundedTopBar
 import com.example.taskly.ui.components.TButton
 
 @Composable
@@ -36,29 +37,27 @@ fun RegisterScreen(
 ) {
     val context = LocalContext.current
     val state = viewModel.state.value
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background),
+            .background(MaterialTheme.colorScheme.background)
+            .pointerInput(Unit) {
+                detectTapGestures(onTap = {
+                    keyboardController?.hide()
+                })
+            },
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top,
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(150.dp)
-                .background(MaterialTheme.colorScheme.secondary),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-                text = stringResource(R.string.create_account),
-                style = MaterialTheme.typography.headlineMedium.copy(color = MaterialTheme.colorScheme.onSecondary),
-                modifier = Modifier.padding(top = Dimensions.padding)
-            )
-        }
 
-        Spacer(modifier = Modifier.height(50.dp))
+    ) {
+
+        RoundedTopBar(
+            title = stringResource(id = R.string.create_account)
+        )
+
+        Spacer(modifier = Modifier.height(30.dp))
 
         TextInput(
             modifier = Modifier

@@ -1,8 +1,10 @@
 package com.example.taskly.feature_auth.data.remote
 
+import com.example.taskly.feature_auth.data.remote.dto.ErrorMessageDto
 import com.example.taskly.feature_auth.data.remote.dto.LoginRequestDto
 import com.example.taskly.feature_auth.data.remote.dto.LoginResponseDto
 import com.example.taskly.feature_auth.data.remote.dto.RegisterRequestDto
+import com.example.taskly.feature_auth.data.remote.dto.toErrorString
 import com.example.taskly.feature_auth.domain.errors.NetworkError
 import com.example.taskly.feature_auth.domain.errors.Result
 import io.ktor.client.HttpClient
@@ -82,7 +84,7 @@ class AuthApiImpl @Inject constructor(
     private suspend fun getErrorType(response: HttpResponse): NetworkError {
         return try {
             NetworkError.RECEIVED_SERVER_ERROR_MESSAGE.apply {
-                this.errorMessage = response.body()
+                this.errorMessage = (response.body() as ErrorMessageDto).toErrorString()
             }
         } catch (e: SerializationException) {
             when (response.status) {
