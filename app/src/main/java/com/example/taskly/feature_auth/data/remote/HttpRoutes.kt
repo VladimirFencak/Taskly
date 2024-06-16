@@ -6,5 +6,4 @@ object HttpRoutes {
 
     const val REGISTER = "$BASE_URL/register"
     const val LOGIN = "$BASE_URL/login"
-    const val LOGOUT = "$BASE_URL/logout"
 }

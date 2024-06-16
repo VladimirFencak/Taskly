@@ -5,19 +5,19 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class LoginResponseDto(
-    val token: String,
+    val accessToken: String,
     val userId: String,
     val fullName: String,
 )
 
 fun LoginResponseDto.toLoginResponse() = LoginResponse(
-    token = this.token,
+    token = this.accessToken,
     userId = this.userId,
     fullName = this.fullName
 )
 
 fun LoginResponse.toLoginResponseDto() = LoginResponseDto(
-    token = this.token,
+    accessToken = this.token,
     userId = this.userId,
     fullName = this.fullName
 )

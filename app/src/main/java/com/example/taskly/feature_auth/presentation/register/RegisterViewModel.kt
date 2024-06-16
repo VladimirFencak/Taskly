@@ -72,7 +72,7 @@ class RegisterViewModel @Inject constructor(
                     }
 
                     is Result.Success -> {
-                        _state.value = _state.value.copy(isLoading = false, error = null)
+                        _state.value = _state.value.copy(isLoading = false, error = null, registered = true)
                     }
                 }
             }

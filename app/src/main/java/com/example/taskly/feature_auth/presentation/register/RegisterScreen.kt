@@ -23,16 +23,19 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.example.taskly.R
+import com.example.taskly.core.presentation.components.RoundedTopBar
+import com.example.taskly.core.presentation.components.TButton
 import com.example.taskly.feature_auth.domain.errors.NetworkError
 import com.example.taskly.feature_auth.presentation.components.PwdInput
 import com.example.taskly.feature_auth.presentation.components.TextInput
 import com.example.taskly.ui.Dimensions
-import com.example.taskly.ui.components.RoundedTopBar
-import com.example.taskly.ui.components.TButton
+import com.example.taskly.ui.navigation.NavLoginScreen
 
 @Composable
 fun RegisterScreen(
+    navController: NavController,
     viewModel: RegisterViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
@@ -125,6 +128,13 @@ fun RegisterScreen(
     LaunchedEffect(state.error) {
         message?.let {
             Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+        }
+    }
+
+    LaunchedEffect(state.registered) {
+        if (state.registered) {
+            Toast.makeText(context, "Successfully registered now LogIn", Toast.LENGTH_LONG).show()
+            navController.navigate(route = NavLoginScreen)
         }
     }
 

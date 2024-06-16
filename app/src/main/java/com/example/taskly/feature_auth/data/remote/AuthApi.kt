@@ -10,6 +10,4 @@ interface AuthApi {
     suspend fun login(loginRequestDto: LoginRequestDto): Result<LoginResponseDto, NetworkError>
 
     suspend fun register(registerRequestDto: RegisterRequestDto): Result<Unit, NetworkError>
-
-    suspend fun logOut(): Result<Unit, NetworkError>
 }

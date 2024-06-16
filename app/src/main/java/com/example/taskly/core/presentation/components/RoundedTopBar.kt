@@ -1,4 +1,4 @@
-package com.example.taskly.ui.components
+package com.example.taskly.core.presentation.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth

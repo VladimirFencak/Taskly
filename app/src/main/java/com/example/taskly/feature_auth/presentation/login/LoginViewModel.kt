@@ -32,7 +32,7 @@ class LoginViewModel @Inject constructor(
             }
 
             LoginEvent.SignUp -> {
-                //navigate to sign up
+                // Navigate to register screen
             }
         }
     }
@@ -60,8 +60,7 @@ class LoginViewModel @Inject constructor(
                     }
 
                     is Result.Success -> {
-                        _state.value = _state.value.copy(isLoading = false, error = null)
-                        //navigate to home screen
+                        _state.value = _state.value.copy(isLoading = false, error = null, isLoggedIn = true)
                     }
                 }
             }

@@ -27,8 +27,4 @@ class AuthRepositoryImpl @Inject constructor(
     override suspend fun register(registerRequest: RegisterRequest): Result<Unit, NetworkError> {
         return authApi.register(registerRequest.toRegisterRequestDto())
     }
-
-    override suspend fun logout(): Result<Unit, NetworkError> {
-        return authApi.logOut()
-    }
 }

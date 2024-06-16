@@ -10,6 +10,4 @@ interface AuthRepository {
     suspend fun login(loginRequest: LoginRequest): Result<LoginResponse, NetworkError>
 
     suspend fun register(registerRequest: RegisterRequest): Result<Unit, NetworkError>
-
-    suspend fun logout(): Result<Unit, NetworkError>
 }

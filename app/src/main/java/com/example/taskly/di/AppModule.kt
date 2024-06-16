@@ -1,5 +1,6 @@
 package com.example.taskly.di
 
+import android.util.Log
 import com.example.taskly.BuildConfig
 import dagger.Module
 import dagger.Provides
@@ -10,6 +11,7 @@ import io.ktor.client.engine.android.Android
 import io.ktor.client.plugins.DefaultRequest
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.LogLevel
+import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.request.header
 import io.ktor.serialization.kotlinx.json.json
@@ -24,6 +26,11 @@ object AppModule {
     fun provideHttpClient(): HttpClient {
         return HttpClient(Android) {
             install(Logging) {
+                logger = object : Logger {
+                    override fun log(message: String) {
+                        Log.e("HttpClient", message)
+                    }
+                }
                 level = LogLevel.ALL
             }
             install(ContentNegotiation) {
@@ -31,6 +38,7 @@ object AppModule {
                     Json {
                         prettyPrint = true
                         isLenient = true
+                        ignoreUnknownKeys = true
                     })
             }
             install(DefaultRequest) {
