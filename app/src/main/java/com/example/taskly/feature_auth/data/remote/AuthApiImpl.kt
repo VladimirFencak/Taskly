@@ -1,17 +1,18 @@
 package com.example.taskly.feature_auth.data.remote
 
+import com.example.taskly.core.domain.errors.NetworkError
+import com.example.taskly.core.domain.errors.Result
 import com.example.taskly.feature_auth.data.remote.dto.ErrorMessageDto
 import com.example.taskly.feature_auth.data.remote.dto.LoginRequestDto
 import com.example.taskly.feature_auth.data.remote.dto.LoginResponseDto
 import com.example.taskly.feature_auth.data.remote.dto.RegisterRequestDto
 import com.example.taskly.feature_auth.data.remote.dto.toErrorString
-import com.example.taskly.feature_auth.domain.errors.NetworkError
-import com.example.taskly.feature_auth.domain.errors.Result
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.network.sockets.ConnectTimeoutException
 import io.ktor.client.plugins.ClientRequestException
 import io.ktor.client.plugins.ServerResponseException
+import io.ktor.client.request.get
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.client.statement.HttpResponse
@@ -45,6 +46,20 @@ class AuthApiImpl @Inject constructor(
             val response = client.post(HttpRoutes.REGISTER) {
                 contentType(ContentType.Application.Json)
                 setBody(registerRequestDto)
+            }
+
+            if (response.status == HttpStatusCode.OK) Result.Success(response.body())
+            else Result.Error(getErrorType(response))
+
+        } catch (e: Exception) {
+            handleException(e)
+        }
+    }
+
+    override suspend fun logOut(): Result<Unit, NetworkError> {
+        return try {
+            val response = client.get(HttpRoutes.LOGOUT) {
+                contentType(ContentType.Application.Json)
             }
 
             if (response.status == HttpStatusCode.OK) Result.Success(response.body())

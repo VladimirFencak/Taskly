@@ -15,6 +15,7 @@ hiltNavi = "1.2.0"
 ksp = "1.8.10-1.0.9"
 kapt = "1.9.0"
 composeNavigation = "2.8.0-beta02"
+secureStorage = "1.1.0-alpha06"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -46,6 +47,7 @@ hilt_android = { group = "com.google.dagger", name = "hilt-android", version.ref
 hilt_androidcompiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
 hilt-navigation = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavi" }
 
+secure-storage = { module = "androidx.security:security-crypto", version.ref = "secureStorage" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -27,9 +27,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.taskly.R
+import com.example.taskly.core.domain.errors.NetworkError
 import com.example.taskly.core.presentation.components.RoundedTopBar
 import com.example.taskly.core.presentation.components.TButton
-import com.example.taskly.feature_auth.domain.errors.NetworkError
 import com.example.taskly.feature_auth.presentation.components.PwdInput
 import com.example.taskly.feature_auth.presentation.components.TextInput
 import com.example.taskly.ui.Dimensions

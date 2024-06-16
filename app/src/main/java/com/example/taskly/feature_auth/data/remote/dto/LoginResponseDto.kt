@@ -11,13 +11,13 @@ data class LoginResponseDto(
 )
 
 fun LoginResponseDto.toLoginResponse() = LoginResponse(
-    token = this.accessToken,
+    accessToken = this.accessToken,
     userId = this.userId,
     fullName = this.fullName
 )
 
 fun LoginResponse.toLoginResponseDto() = LoginResponseDto(
-    accessToken = this.token,
+    accessToken = this.accessToken,
     userId = this.userId,
     fullName = this.fullName
 )

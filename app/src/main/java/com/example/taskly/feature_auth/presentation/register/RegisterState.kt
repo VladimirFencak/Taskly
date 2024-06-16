@@ -1,6 +1,6 @@
 package com.example.taskly.feature_auth.presentation.register
 
-import com.example.taskly.feature_auth.domain.errors.NetworkError
+import com.example.taskly.core.domain.errors.NetworkError
 
 data class RegisterState(
     val isLoading: Boolean = false,

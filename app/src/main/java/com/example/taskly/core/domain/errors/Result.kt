@@ -1,4 +1,4 @@
-package com.example.taskly.feature_auth.domain.errors
+package com.example.taskly.core.domain.errors
 
 sealed interface Result<out D, out E : ErrorDefault> {
     data class Success<out D, out E : ErrorDefault>(val data: D) : Result<D, E>

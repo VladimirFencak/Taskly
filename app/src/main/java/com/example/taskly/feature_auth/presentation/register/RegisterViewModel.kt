@@ -5,7 +5,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.taskly.feature_auth.domain.errors.Result
+import com.example.taskly.core.domain.errors.Result
 import com.example.taskly.feature_auth.domain.model.RegisterRequest
 import com.example.taskly.feature_auth.domain.repository.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -1,6 +1,6 @@
 package com.example.taskly.feature_auth.presentation.login
 
-import com.example.taskly.feature_auth.domain.errors.NetworkError
+import com.example.taskly.core.domain.errors.NetworkError
 
 data class LoginState(
     val isLoading: Boolean = false,

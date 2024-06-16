@@ -83,4 +83,6 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.androidcompiler)
     implementation(libs.hilt.navigation)
+
+    implementation(libs.secure.storage)
 }

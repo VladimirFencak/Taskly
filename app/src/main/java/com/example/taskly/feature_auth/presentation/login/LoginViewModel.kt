@@ -5,7 +5,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.taskly.feature_auth.domain.errors.Result
+import com.example.taskly.core.domain.errors.Result
 import com.example.taskly.feature_auth.domain.model.LoginRequest
 import com.example.taskly.feature_auth.domain.repository.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,10 +29,6 @@ class LoginViewModel @Inject constructor(
 
             is LoginEvent.OnLoginPwdChange -> {
                 _state.value = _state.value.copy(loginPwd = event.pwd)
-            }
-
-            LoginEvent.SignUp -> {
-                // Navigate to register screen
             }
         }
     }
@@ -61,6 +57,7 @@ class LoginViewModel @Inject constructor(
 
                     is Result.Success -> {
                         _state.value = _state.value.copy(isLoading = false, error = null, isLoggedIn = true)
+                        authRepository.storeJwtToken(it.data.accessToken)
                     }
                 }
             }
