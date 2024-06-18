@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Taskly.Starting" parent="Theme.SplashScreen">
+        <!--        <item name="windowSplashScreenBackground">#279F70</item>-->
+        <item name="windowSplashScreenBackground">#ffffff</item>
+
+        <item name="windowSplashScreenAnimatedIcon">@drawable/taskly_app_logo_dark</item>
+
+        <item name="postSplashScreenTheme">@style/Theme.Taskly</item>
+    </style>
+</resources>

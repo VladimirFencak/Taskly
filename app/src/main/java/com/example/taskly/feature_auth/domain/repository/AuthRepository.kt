@@ -13,6 +13,8 @@ interface AuthRepository {
 
     suspend fun logout(): Result<Unit, NetworkError>
 
+    suspend fun authenticate(bearerToken: String): Result<Unit, NetworkError>
+
     suspend fun storeJwtToken(token: String)
 
     suspend fun getJwtToken(): String?

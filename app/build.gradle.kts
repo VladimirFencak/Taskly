@@ -85,4 +85,6 @@ dependencies {
     implementation(libs.hilt.navigation)
 
     implementation(libs.secure.storage)
+
+    implementation(libs.splash.screen)
 }

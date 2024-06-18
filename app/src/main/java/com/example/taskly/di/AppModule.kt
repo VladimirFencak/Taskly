@@ -2,6 +2,9 @@ package com.example.taskly.di
 
 import android.util.Log
 import com.example.taskly.BuildConfig
+import com.example.taskly.core.domain.session.UserSessionManager
+import com.example.taskly.feature_auth.data.UserSessionManagerImpl
+import com.example.taskly.feature_auth.domain.repository.AuthRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -45,5 +48,11 @@ object AppModule {
                 header("x-api-key", BuildConfig.apiKey)
             }
         }
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserSessionManager(authRepository: AuthRepository): UserSessionManager {
+        return UserSessionManagerImpl(authRepository)
     }
 }

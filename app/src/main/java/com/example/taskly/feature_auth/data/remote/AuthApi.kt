@@ -12,4 +12,6 @@ interface AuthApi {
     suspend fun register(registerRequestDto: RegisterRequestDto): Result<Unit, NetworkError>
 
     suspend fun logOut(): Result<Unit, NetworkError>
+
+    suspend fun authenticate(bearerToken: String): Result<Unit, NetworkError>
 }

@@ -18,7 +18,7 @@ class UserSessionManagerImpl @Inject constructor(
     }
 
     override suspend fun isUserLoggedIn(): Boolean {
-        return false
+        return authRepository.authenticate(getJwtToken() ?: "") is Result.Success
     }
 
     override suspend fun logOut(): Result<Unit, NetworkError> {

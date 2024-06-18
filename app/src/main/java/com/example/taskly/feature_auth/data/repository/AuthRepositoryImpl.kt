@@ -34,6 +34,10 @@ class AuthRepositoryImpl @Inject constructor(
         return authApi.logOut()
     }
 
+    override suspend fun authenticate(bearerToken: String): Result<Unit, NetworkError> {
+        return authApi.authenticate(bearerToken)
+    }
+
     override suspend fun storeJwtToken(token: String) {
         secureStorage.storeJwtToken(token)
     }
@@ -41,4 +45,5 @@ class AuthRepositoryImpl @Inject constructor(
     override suspend fun getJwtToken(): String? {
         return secureStorage.getJwtToken()
     }
+
 }

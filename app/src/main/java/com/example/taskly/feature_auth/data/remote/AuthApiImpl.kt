@@ -13,10 +13,12 @@ import io.ktor.client.network.sockets.ConnectTimeoutException
 import io.ktor.client.plugins.ClientRequestException
 import io.ktor.client.plugins.ServerResponseException
 import io.ktor.client.request.get
+import io.ktor.client.request.headers
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.client.statement.HttpResponse
 import io.ktor.http.ContentType
+import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.contentType
 import kotlinx.serialization.SerializationException
@@ -60,6 +62,23 @@ class AuthApiImpl @Inject constructor(
         return try {
             val response = client.get(HttpRoutes.LOGOUT) {
                 contentType(ContentType.Application.Json)
+            }
+
+            if (response.status == HttpStatusCode.OK) Result.Success(response.body())
+            else Result.Error(getErrorType(response))
+
+        } catch (e: Exception) {
+            handleException(e)
+        }
+    }
+
+    override suspend fun authenticate(bearerToken: String): Result<Unit, NetworkError> {
+        return try {
+            val response = client.get(HttpRoutes.AUTHENTICATE) {
+                contentType(ContentType.Application.Json)
+                headers {
+                    append(HttpHeaders.Authorization, "Bearer $bearerToken")
+                }
             }
 
             if (response.status == HttpStatusCode.OK) Result.Success(response.body())
