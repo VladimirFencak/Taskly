@@ -1,4 +1,4 @@
-package com.example.taskly.feature_auth.data.remote
+package com.example.taskly.core.data.remote
 
 object HttpRoutes {
 

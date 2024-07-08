@@ -9,6 +9,7 @@ import com.example.taskly.core.domain.errors.Result
 import com.example.taskly.feature_auth.domain.model.LoginRequest
 import com.example.taskly.feature_auth.domain.repository.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -42,7 +43,7 @@ class LoginViewModel @Inject constructor(
     }
 
     private fun login(loginName: String, loginPwd: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _state.value = _state.value.copy(isLoading = true)
             authRepository.login(
                 LoginRequest(
