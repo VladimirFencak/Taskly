@@ -8,4 +8,8 @@ object HttpRoutes {
     const val LOGIN = "$BASE_URL/login"
     const val LOGOUT = "$BASE_URL/logout"
     const val AUTHENTICATE = "$BASE_URL/authenticate"
+
+    const val AGENDA = "$BASE_URL/agenda"
+    const val TASK = "$BASE_URL/task"
+
 }

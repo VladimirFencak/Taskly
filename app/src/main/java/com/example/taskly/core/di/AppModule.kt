@@ -1,4 +1,4 @@
-package com.example.taskly.di
+package com.example.taskly.core.di
 
 import android.util.Log
 import com.example.taskly.BuildConfig
