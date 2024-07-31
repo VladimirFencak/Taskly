@@ -20,8 +20,9 @@ import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.contentType
+import javax.inject.Inject
 
-class AgendaApiImpl(
+class AgendaApiImpl @Inject constructor(
     private val client: HttpClient,
     private val userSessionManager: UserSessionManager
 ) : AgendaApi {
