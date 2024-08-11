@@ -84,6 +84,10 @@ dependencies {
     kapt(libs.hilt.androidcompiler)
     implementation(libs.hilt.navigation)
 
+    implementation(libs.room.ktx)
+    implementation(libs.room.runtime)
+    kapt(libs.room.compiler)
+
     implementation(libs.secure.storage)
 
     implementation(libs.splash.screen)
