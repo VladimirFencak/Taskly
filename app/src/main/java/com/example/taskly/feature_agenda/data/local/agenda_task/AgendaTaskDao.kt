@@ -1,7 +1,6 @@
 package com.example.taskly.feature_agenda.data.local.agenda_task
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -17,8 +16,8 @@ interface AgendaTaskDao {
     fun getAllTasks(): Flow<List<AgendaTaskEntity>>
 
     @Query("SELECT * FROM agenda_task WHERE id = :taskId LIMIT 1")
-    suspend fun getTaskById(taskId: String): AgendaTaskEntity?
+    fun getTaskById(taskId: String): Flow<AgendaTaskEntity?>
 
-    @Delete
-    suspend fun deleteTask(task: AgendaTaskEntity)
+    @Query("DELETE FROM agenda_task WHERE id = :taskId")
+    suspend fun deleteTask(taskId: String)
 }

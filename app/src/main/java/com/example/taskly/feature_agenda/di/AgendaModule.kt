@@ -4,6 +4,9 @@ import android.content.Context
 import androidx.room.Room
 import com.example.taskly.core.domain.session.UserSessionManager
 import com.example.taskly.feature_agenda.data.local.AgendaDatabase
+import com.example.taskly.feature_agenda.data.local.agenda_event.AgendaEventDao
+import com.example.taskly.feature_agenda.data.local.agenda_reminder.AgendaReminderDao
+import com.example.taskly.feature_agenda.data.local.agenda_task.AgendaTaskDao
 import com.example.taskly.feature_agenda.data.remote.AgendaApi
 import com.example.taskly.feature_agenda.data.remote.AgendaApiImpl
 import com.example.taskly.feature_agenda.data.repository.AgendaRepositoryImpl
@@ -26,7 +29,17 @@ object AgendaModule {
 
     @Provides
     @Singleton
-    fun provideAgendaRepository(agendaApi: AgendaApi): AgendaRepository = AgendaRepositoryImpl(agendaApi)
+    fun provideAgendaRepository(
+        agendaApi: AgendaApi,
+        agendaTaskDao: AgendaTaskDao,
+        agendaReminderDao: AgendaReminderDao,
+        agendaEventDao: AgendaEventDao
+    ): AgendaRepository = AgendaRepositoryImpl(
+        agendaApi = agendaApi,
+        agendaReminderDao = agendaReminderDao,
+        agendaEventDao = agendaEventDao,
+        agendaTaskDao = agendaTaskDao
+    )
 
     @Provides
     @Singleton

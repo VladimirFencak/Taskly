@@ -6,8 +6,9 @@ import com.example.taskly.core.data.remote.NetworkExceptionHandler.handleNetwork
 import com.example.taskly.core.domain.errors.NetworkError
 import com.example.taskly.core.domain.errors.Result
 import com.example.taskly.core.domain.session.UserSessionManager
+import com.example.taskly.feature_agenda.data.remote.dto.AgendaResponseDto
+import com.example.taskly.feature_agenda.data.remote.dto.toAgendaTaskDto
 import com.example.taskly.feature_agenda.domain.model.AgendaRequest
-import com.example.taskly.feature_agenda.domain.model.AgendaResponse
 import com.example.taskly.feature_agenda.domain.model.AgendaTask
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -26,7 +27,7 @@ class AgendaApiImpl @Inject constructor(
     private val client: HttpClient,
     private val userSessionManager: UserSessionManager
 ) : AgendaApi {
-    override suspend fun getAgenda(agendaRequest: AgendaRequest): Result<AgendaResponse, NetworkError> {
+    override suspend fun getAgenda(agendaRequest: AgendaRequest): Result<AgendaResponseDto, NetworkError> {
         return try {
             val response = client.get(HttpRoutes.AGENDA) {
                 url {
@@ -47,7 +48,7 @@ class AgendaApiImpl @Inject constructor(
         return try {
             val response = client.post(HttpRoutes.TASK) {
                 contentType(ContentType.Application.Json)
-                setBody(agendaTask)
+                setBody(agendaTask.toAgendaTaskDto())
                 headers.append(HttpHeaders.Authorization, "Bearer ${userSessionManager.getJwtToken()}")
             }
             if (response.status == HttpStatusCode.OK) Result.Success(response.body())
@@ -77,7 +78,7 @@ class AgendaApiImpl @Inject constructor(
         return try {
             val response = client.put(HttpRoutes.TASK) {
                 contentType(ContentType.Application.Json)
-                setBody(agendaTask)
+                setBody(agendaTask.toAgendaTaskDto())
                 headers.append(HttpHeaders.Authorization, "Bearer ${userSessionManager.getJwtToken()}")
             }
             if (response.status == HttpStatusCode.OK) Result.Success(response.body())

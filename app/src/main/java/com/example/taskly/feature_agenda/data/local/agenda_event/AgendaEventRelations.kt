@@ -22,31 +22,29 @@ data class AgendaEventWithDetails(
     val photos: List<PhotoEntity>
 )
 
-fun AgendaEventWithDetails.toAgendaEvent(): AgendaEvent {
-    return AgendaEvent(
-        id = event.id,
-        title = event.title,
-        description = event.description,
-        from = event.from,
-        to = event.to,
-        remindAt = event.remindAt,
-        host = event.host,
-        isUserEventCreator = event.isUserEventCreator,
-        attendees = attendees.map {
-            Attendee(
-                email = it.email,
-                fullName = it.fullName,
-                userId = it.userId,
-                eventId = it.eventId,
-                isGoing = it.isGoing,
-                remindAt = it.remindAt
-            )
-        },
-        photos = photos.map {
-            Photo(
-                key = it.key,
-                url = it.url
-            )
-        }
-    )
-}
+fun AgendaEventWithDetails.toAgendaEvent() = AgendaEvent(
+    id = event.id,
+    title = event.title,
+    description = event.description,
+    from = event.from,
+    to = event.to,
+    remindAt = event.remindAt,
+    host = event.host,
+    isUserEventCreator = event.isUserEventCreator,
+    attendees = attendees.map {
+        Attendee(
+            email = it.email,
+            fullName = it.fullName,
+            userId = it.userId,
+            eventId = it.eventId,
+            isGoing = it.isGoing,
+            remindAt = it.remindAt
+        )
+    },
+    photos = photos.map {
+        Photo(
+            key = it.key,
+            url = it.url
+        )
+    }
+)
