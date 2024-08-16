@@ -72,9 +72,25 @@ class AgendaRepositoryImpl @Inject constructor(
         }
     }
 
-    //    override suspend fun getAgendaLocal(agendaRequest: AgendaRequest): Result<Flow<AgendaResponse>, ErrorDefault> {
-    //
-    //    }
+    override suspend fun getAgendaLocal(startOfDayUtc: Long, endOfDayUtc: Long): Result<Flow<AgendaResponse>, ErrorDefault> {
+        return try {
+            Result.Success(
+                combine(
+                    agendaTaskDao.getTasks(startOfDayUtc, endOfDayUtc),
+                    agendaReminderDao.getReminders(startOfDayUtc, endOfDayUtc)
+                ) { tasks, reminders ->
+                    AgendaResponse(
+                        events = emptyList(),
+                        tasks = tasks.map { it.toAgendaTask() },
+                        reminders = reminders.map { it.toAgendaReminder() }
+                    )
+                }
+            )
+
+        } catch (e: Exception) {
+            Result.Error(NetworkError.UNKNOWN_ERROR)
+        }
+    }
 
     override suspend fun insertTasksLocal(tasks: List<AgendaTask>): Result<Unit, ErrorDefault> {
         return try {

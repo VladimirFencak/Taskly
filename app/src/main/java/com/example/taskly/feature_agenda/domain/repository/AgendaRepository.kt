@@ -18,7 +18,7 @@ interface AgendaRepository {
 
     suspend fun getFullAgendaLocal(): Result<Flow<AgendaResponse>, ErrorDefault>
 
-    //suspend fun getAgendaLocal(agendaRequest: AgendaRequest): Result<Flow<AgendaResponse>, ErrorDefault>
+    suspend fun getAgendaLocal(startOfDayUtc: Long, endOfDayUtc: Long): Result<Flow<AgendaResponse>, ErrorDefault>
     suspend fun insertTasksLocal(tasks: List<AgendaTask>): Result<Unit, ErrorDefault>
     suspend fun createTaskLocal(agendaTask: AgendaTask): Result<Unit, ErrorDefault>
     suspend fun getTaskLocal(taskId: String): Result<Flow<AgendaTask?>, ErrorDefault>

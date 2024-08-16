@@ -19,6 +19,9 @@ interface AgendaReminderDao {
     @Query("SELECT * FROM agenda_reminder")
     fun getAllReminders(): Flow<List<AgendaReminderEntity>>
 
+    @Query("SELECT * FROM agenda_reminder WHERE time >= :startOfDayUtc AND time <= :endOfDayUtc")
+    fun getReminders(startOfDayUtc: Long, endOfDayUtc: Long): Flow<List<AgendaReminderEntity>>
+
     @Query("SELECT * FROM agenda_reminder WHERE id = :reminderId LIMIT 1")
     suspend fun getReminderById(reminderId: String): AgendaReminderEntity?
 

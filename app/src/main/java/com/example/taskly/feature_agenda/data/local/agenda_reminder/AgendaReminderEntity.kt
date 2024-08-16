@@ -20,3 +20,11 @@ fun AgendaReminderEntity.toAgendaReminder() = AgendaReminder(
     time = time,
     remindAt = remindAt
 )
+
+fun AgendaReminder.toAgendaReminderEntity() = AgendaReminderEntity(
+    id = id,
+    title = title,
+    description = description,
+    time = time,
+    remindAt = remindAt
+)

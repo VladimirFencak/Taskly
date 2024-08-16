@@ -18,6 +18,9 @@ interface AgendaTaskDao {
     @Query("SELECT * FROM agenda_task")
     fun getAllTasks(): Flow<List<AgendaTaskEntity>>
 
+    @Query("SELECT * FROM agenda_task WHERE time >= :startOfDayUtc AND time <= :endOfDayUtc")
+    fun getTasks(startOfDayUtc: Long, endOfDayUtc: Long): Flow<List<AgendaTaskEntity>>
+
     @Query("SELECT * FROM agenda_task WHERE id = :taskId LIMIT 1")
     fun getTaskById(taskId: String): Flow<AgendaTaskEntity?>
 
