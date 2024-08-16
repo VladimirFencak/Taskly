@@ -12,6 +12,9 @@ interface AgendaTaskDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTask(task: AgendaTaskEntity)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertTasks(tasks: List<AgendaTaskEntity>)
+
     @Query("SELECT * FROM agenda_task")
     fun getAllTasks(): Flow<List<AgendaTaskEntity>>
 

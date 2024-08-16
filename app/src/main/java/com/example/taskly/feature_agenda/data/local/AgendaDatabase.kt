@@ -9,10 +9,10 @@ import com.example.taskly.feature_agenda.data.local.agenda_event.PhotoEntity
 import com.example.taskly.feature_agenda.data.local.agenda_reminder.AgendaReminderDao
 import com.example.taskly.feature_agenda.data.local.agenda_reminder.AgendaReminderEntity
 import com.example.taskly.feature_agenda.data.local.agenda_task.AgendaTaskDao
-import com.example.taskly.feature_agenda.domain.model.AgendaTask
+import com.example.taskly.feature_agenda.data.local.agenda_task.AgendaTaskEntity
 
 @Database(
-    entities = [AgendaTask::class, AgendaEventEntity::class, AttendeeEntity::class, PhotoEntity::class, AgendaReminderEntity::class],
+    entities = [AgendaTaskEntity::class, AgendaEventEntity::class, AttendeeEntity::class, PhotoEntity::class, AgendaReminderEntity::class],
     version = 1
 )
 abstract class AgendaDatabase : RoomDatabase() {

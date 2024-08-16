@@ -1,5 +1,6 @@
 package com.example.taskly.feature_agenda.data.repository
 
+import com.example.taskly.core.domain.errors.ErrorDefault
 import com.example.taskly.core.domain.errors.NetworkError
 import com.example.taskly.core.domain.errors.Result
 import com.example.taskly.core.domain.errors.map
@@ -31,6 +32,10 @@ class AgendaRepositoryImpl @Inject constructor(
         return agendaApi.getAgenda(agendaRequest).map { it.toAgendaResponse() }
     }
 
+    override suspend fun getFullAgendaRemote(): Result<AgendaResponse, NetworkError> {
+        return agendaApi.getFullAgenda().map { it.toAgendaResponse() }
+    }
+
     override suspend fun createTaskRemote(agendaTask: AgendaTask): Result<Unit, NetworkError> {
         return agendaApi.createTask(agendaTask)
     }
@@ -47,7 +52,7 @@ class AgendaRepositoryImpl @Inject constructor(
         return agendaApi.deleteTask(taskId)
     }
 
-    override suspend fun getAgendaLocal(agendaRequest: AgendaRequest): Result<Flow<AgendaResponse>, NetworkError> {
+    override suspend fun getFullAgendaLocal(): Result<Flow<AgendaResponse>, NetworkError> {
         return try {
             Result.Success(
                 combine(
@@ -67,7 +72,20 @@ class AgendaRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun createTaskLocal(agendaTask: AgendaTask): Result<Unit, NetworkError> {
+    //    override suspend fun getAgendaLocal(agendaRequest: AgendaRequest): Result<Flow<AgendaResponse>, ErrorDefault> {
+    //
+    //    }
+
+    override suspend fun insertTasksLocal(tasks: List<AgendaTask>): Result<Unit, ErrorDefault> {
+        return try {
+            agendaTaskDao.insertTasks(tasks.map { it.toAgendaTaskEntity() })
+            Result.Success(Unit)
+        } catch (e: Exception) {
+            Result.Error(NetworkError.UNKNOWN_ERROR)
+        }
+    }
+
+    override suspend fun createTaskLocal(agendaTask: AgendaTask): Result<Unit, ErrorDefault> {
         return try {
             agendaTaskDao.insertTask(agendaTask.toAgendaTaskEntity())
             Result.Success(Unit)
@@ -76,7 +94,7 @@ class AgendaRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getTaskLocal(taskId: String): Result<Flow<AgendaTask?>, NetworkError> {
+    override suspend fun getTaskLocal(taskId: String): Result<Flow<AgendaTask?>, ErrorDefault> {
         return try {
             Result.Success(
                 agendaTaskDao.getTaskById(taskId).map { it?.toAgendaTask() }
@@ -86,7 +104,7 @@ class AgendaRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun updateTaskLocal(agendaTask: AgendaTask): Result<Unit, NetworkError> {
+    override suspend fun updateTaskLocal(agendaTask: AgendaTask): Result<Unit, ErrorDefault> {
         return try {
             agendaTaskDao.insertTask(agendaTask.toAgendaTaskEntity())
             Result.Success(Unit)
@@ -95,7 +113,7 @@ class AgendaRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun deleteTaskLocal(taskId: String): Result<Unit, NetworkError> {
+    override suspend fun deleteTaskLocal(taskId: String): Result<Unit, ErrorDefault> {
         return try {
             agendaTaskDao.deleteTask(taskId)
             Result.Success(Unit)

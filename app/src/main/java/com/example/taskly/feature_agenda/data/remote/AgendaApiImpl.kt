@@ -44,6 +44,19 @@ class AgendaApiImpl @Inject constructor(
         }
     }
 
+    override suspend fun getFullAgenda(): Result<AgendaResponseDto, NetworkError> {
+        return try {
+            val response = client.get(HttpRoutes.FULL_AGENDA) {
+                contentType(ContentType.Application.Json)
+                headers.append(HttpHeaders.Authorization, "Bearer ${userSessionManager.getJwtToken()}")
+            }
+            if (response.status == HttpStatusCode.OK) Result.Success(response.body())
+            else Result.Error(getErrorType(response))
+        } catch (e: Exception) {
+            handleNetworkException(e)
+        }
+    }
+
     override suspend fun createTask(agendaTask: AgendaTask): Result<Unit, NetworkError> {
         return try {
             val response = client.post(HttpRoutes.TASK) {

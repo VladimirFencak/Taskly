@@ -8,6 +8,7 @@ import com.example.taskly.feature_agenda.domain.model.AgendaTask
 
 interface AgendaApi {
     suspend fun getAgenda(agendaRequest: AgendaRequest): Result<AgendaResponseDto, NetworkError>
+    suspend fun getFullAgenda(): Result<AgendaResponseDto, NetworkError>
     suspend fun createTask(agendaTask: AgendaTask): Result<Unit, NetworkError>
     suspend fun getTask(taskId: String): Result<AgendaTask, NetworkError>
     suspend fun updateTask(agendaTask: AgendaTask): Result<Unit, NetworkError>

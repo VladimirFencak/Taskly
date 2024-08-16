@@ -10,6 +10,7 @@ object HttpRoutes {
     const val AUTHENTICATE = "$BASE_URL/authenticate"
 
     const val AGENDA = "$BASE_URL/agenda"
+    const val FULL_AGENDA = "$BASE_URL/fullAgenda"
     const val TASK = "$BASE_URL/task"
 
 }

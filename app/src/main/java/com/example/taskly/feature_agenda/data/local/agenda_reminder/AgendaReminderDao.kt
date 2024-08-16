@@ -13,6 +13,9 @@ interface AgendaReminderDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertReminder(reminder: AgendaReminderEntity)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertReminders(reminders: List<AgendaReminderEntity>)
+
     @Query("SELECT * FROM agenda_reminder")
     fun getAllReminders(): Flow<List<AgendaReminderEntity>>
 

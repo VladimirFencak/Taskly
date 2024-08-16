@@ -22,8 +22,22 @@ interface AgendaEventDao {
         insertPhotos(photos)
     }
 
+    @Transaction
+    suspend fun insertWholeEvents(
+        events: List<AgendaEventEntity>,
+        attendees: List<AttendeeEntity>,
+        photos: List<PhotoEntity>
+    ) {
+        insertEvents(events)
+        insertAttendees(attendees)
+        insertPhotos(photos)
+    }
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertEvent(event: AgendaEventEntity)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertEvents(events: List<AgendaEventEntity>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAttendees(attendees: List<AttendeeEntity>)
@@ -34,6 +48,10 @@ interface AgendaEventDao {
     @Transaction
     @Query("SELECT * FROM agenda_event")
     fun getAllEventsWithDetails(): Flow<List<AgendaEventWithDetails>>
+
+    @Transaction
+    @Query("SELECT * FROM agenda_event WHERE id = :eventId")
+    fun getEventWithDetailsById(eventId: String): Flow<AgendaEventWithDetails>
 
     @Delete
     suspend fun deleteEvent(event: AgendaEventEntity)
