@@ -91,4 +91,6 @@ dependencies {
     implementation(libs.secure.storage)
 
     implementation(libs.splash.screen)
+
+    implementation(libs.kotlin.datetime)
 }
