@@ -27,6 +27,7 @@ This is an Android application in development, using Kotlin, Jetpack Compose for
 - **MVVM**: Architecture pattern to separate the UI, business logic, and data.
 - **Clean Architecture**: Not 100%, as it is overkill for an app of this size. I decided not to use UseCases but follow other principles. Logic from VM can always be moved to UseCases if needed.
 - **Ktor**: Framework for making HTTP requests to the API.
+- **Room**: For local database.
 - **JWT**: JSON Web Tokens for secure authentication.
 - **EncryptedSharedPreferences**: Secure storage for JWT tokens.
 - **NavHostController**: For navigation between screens with a nested navigation graph.
@@ -34,9 +35,9 @@ This is an Android application in development, using Kotlin, Jetpack Compose for
 ## Project Structure
 - **CORE**: Contains core functionalities and common utilities.
 - **AUTH**: Manages authentication-related features such as login and registration.
+- **Agenda**: Feature for calendar, and tasks/events in the calendar.
 
 ## Project Structure in Development (Future Plan)
-- **Agenda**: Feature for calendar, and tasks/events in the calendar.
 - **User**: Feature package for user profile.
 
 ## API Integration
